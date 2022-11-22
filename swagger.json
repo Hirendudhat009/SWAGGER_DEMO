@@ -1,0 +1,270 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Login",
+        "description": "Demo",
+        "licence": {
+            "name": "Apache 2.0"
+        }
+    },
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "securityDefinitions": {
+        "bearerAuth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    },
+    "components": {
+        "schemas": {
+            "User": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                }
+            },
+            "UserDetail": {
+                "type": "object",
+                "properties": {
+                    "firstname": {
+                        "type": "string"
+                    },
+                    "lastname": {
+                        "type": "string"
+                    },
+                    "age": {
+                        "type": "integer"
+                    },
+                    "city": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "user",
+            "externalDocs": {
+                "description": "Demo"
+            }
+        },
+        "user-detail",
+        "image"
+    ],
+    "paths": {
+        "/register": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Create User",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "user",
+                        "schema": {
+                            "$ref": "#/components/schemas/User"
+                        }
+                    }
+                ],
+                "description": "user can register",
+                "responses": {
+                    "200": {
+                        "description": "successfully registered"
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "summary": "login User",
+                "tags": [
+                    "user"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "login",
+                        "schema": {
+                            "$ref": "#/components/schemas/User"
+                        }
+                    }
+                ],
+                "description": "user can login",
+                "responses": {
+                    "200": {
+                        "description": "login successful",
+                        "content": "application/json"
+                    }
+                }
+            }
+        },
+        "/user/detail": {
+            "post": {
+                "tags": [
+                    "user-detail"
+                ],
+                "summary": "Create User-Detail",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "User-Detail",
+                        "schema": {
+                            "$ref": "#/components/schemas/UserDetail"
+                        }
+                    }
+                ],
+                "description": "User Detail",
+                "responses": {
+                    "200": {
+                        "description": " User detail",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "user-detail"
+                ],
+                "summary": "User-Detail list",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "description": "user list",
+                "responses": {
+                    "200": {
+                        "description": "user-details ",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/user/detail/{id}": {
+            "put": {
+                "summary": "Update User-Detail",
+                "tags": [
+                    "user-detail"
+                ],
+                "style": "simple",
+                "explode": true,
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id"
+                    },
+                    {
+                        "in": "body",
+                        "name": "user-detail",
+                        "schema": {
+                            "$ref": "#/components/schemas/UserDetail"
+                        }
+                    }
+                ],
+                "description": "user can login",
+                "responses": {
+                    "200": {
+                        "description": "login successful",
+                        "content": "application/json"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete User-Detail by ID",
+                "tags": [
+                    "user-detail"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id"
+                    }
+                ],
+                "description": "Delete a user-Detail",
+                "responses": {
+                    "200": {
+                        "description": "login successful",
+                        "content": "application/json"
+                    }
+                }
+            }
+        },
+        "/user/detail/id": {
+            "get": {
+                "tags": [
+                    "user-detail"
+                ],
+                "summary": "User-Detail By Specific ID (query parameter)",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "id"
+                    }
+                ],
+                "description": "query related get data",
+                "responses": {
+                    "200": {
+                        "description": " user detail  ",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/image": {
+            "post": {
+                "tags": [
+                    "image"
+                ],
+                "parameters": [
+                    {
+                        "in": "formData",
+                        "type": "file",
+                        "name": "image"
+                    }
+                ],
+                "description": " image",
+                "responses": {
+                    "200": {
+                        "description": " user detail  "
+                    }
+                }
+            }
+        }
+    }
+}
